@@ -5,7 +5,6 @@ const axios = require("axios");
 
 const CLIENT_ID = process.env.CLIENT_ID;
 const CLIENT_SECRET = process.env.CLIENT_SECRET;
-const REDIRECT_URI = process.env.REDIRECT_URI;
 
 const app = express();
 
@@ -30,7 +29,7 @@ app.get("/login", (req, res) => {
   const queryParams = querystring.stringify({
     client_id: CLIENT_ID,
     response_type: "code",
-    redirect_uri: REDIRECT_URI,
+    redirect_uri: `${req.hostname}/callback`,
     state: state,
     scope: scope,
   });
@@ -47,7 +46,7 @@ app.get("/callback", (req, res) => {
     data: querystring.stringify({
       grant_type: "authorization_code",
       code: code,
-      redirect_uri: REDIRECT_URI,
+      redirect_uri: `${req.hostname}/callback`,
     }),
     headers: {
       "content-type": "application/x-www-form-urlencoded",
