@@ -26,15 +26,15 @@ app.get("/login", (req, res) => {
 
   const scope = "user-read-private user-read-email";
 
-  const queryParams = querystring.stringify({
+  /*const queryParams = querystring.stringify({
     client_id: CLIENT_ID,
     response_type: "code",
     redirect_uri: `${req.protocol}://${req.headers.host}/callback`,
     state: state,
     scope: scope,
-  });
-
-  res.redirect(`https://accounts.spotify.com/authorize?${queryParams}`);
+  });*/
+  res.send(`${req.protocol}://${req.headers.host}/callback`);
+  //res.redirect(`https://accounts.spotify.com/authorize?${queryParams}`);
 });
 
 app.get("/callback", (req, res) => {
