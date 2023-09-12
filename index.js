@@ -29,7 +29,7 @@ app.get("/login", (req, res) => {
   const queryParams = querystring.stringify({
     client_id: CLIENT_ID,
     response_type: "code",
-    redirect_uri: `${req.hostname}/callback`,
+    redirect_uri: `${req.protocol}://${req.headers.host}/callback`,
     state: state,
     scope: scope,
   });
@@ -46,7 +46,7 @@ app.get("/callback", (req, res) => {
     data: querystring.stringify({
       grant_type: "authorization_code",
       code: code,
-      redirect_uri: `${req.hostname}/callback`,
+      redirect_uri: `${req.protocol}://${req.headers.host}/callback`,
     }),
     headers: {
       "content-type": "application/x-www-form-urlencoded",
